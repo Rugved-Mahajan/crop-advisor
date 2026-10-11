@@ -16,12 +16,16 @@
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-header{background:linear-gradient(135deg,var(--g2),var(--g));color:#fff;padding:22px 18px 26px;text-align:center}
-header h1{margin:0;font-size:1.35rem}
-header p{margin:6px auto 0;max-width:620px;font-size:.92rem;opacity:.92}
+header{background:linear-gradient(135deg,var(--g2),var(--g));color:#fff;padding:20px 18px 22px;text-align:center}
+header h1{margin:0;font-size:1.3rem}
+header p{margin:6px auto 0;max-width:620px;font-size:.9rem;opacity:.92}
+nav{display:flex;position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.tab{flex:1;border:0;background:transparent;color:var(--mute);padding:13px 6px;font-size:.92rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}
+.tab.on{color:var(--g);border-bottom-color:var(--g)}
 main{max-width:860px;margin:0 auto;padding:16px 14px 40px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
 h2{font-size:1rem;margin:0 0 10px}
+.hint{color:var(--mute);font-size:.85rem;margin:8px 0 0}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 14px;border-radius:999px;font-size:.9rem;cursor:pointer}
 .chip.on{background:var(--g);border-color:var(--g);color:#fff}
@@ -31,10 +35,17 @@ h2{font-size:1rem;margin:0 0 10px}
 .unit{color:var(--mute);font-weight:400}
 .row{display:flex;gap:10px;align-items:center}
 input[type=range]{flex:1;accent-color:var(--g);min-width:0}
-input[type=number]{width:92px;padding:9px 8px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:1rem}
+input[type=number],input[type=text],select{padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:1rem}
+input[type=number]{width:92px}
 .sec{font-weight:700;margin:4px 0 12px}
 button.go{width:100%;margin-top:6px;padding:15px;border:0;border-radius:14px;background:var(--g);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}
 button.go:active{background:var(--g2)}
+button.alt{padding:10px 14px;border:1px solid var(--g);border-radius:10px;background:transparent;color:var(--g);font-weight:700;font-size:.95rem;cursor:pointer}
+.wrow{display:flex;gap:8px;margin-top:10px}
+.wrow input{flex:1;min-width:0}
+.wstatus{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--tr);font-size:.9rem}
+.wstatus.ok{background:var(--okbg)}.wstatus.err{background:var(--warnbg);color:var(--warn)}
+#cityResults{display:flex;flex-direction:column;gap:6px;margin-top:8px;align-items:flex-start}
 .err{background:var(--warnbg);color:var(--warn);padding:10px 12px;border-radius:10px;margin-top:10px}
 .hero{display:flex;align-items:center;gap:14px}
 .hero .e{font-size:3rem;line-height:1}
@@ -44,18 +55,55 @@ button.go:active{background:var(--g2)}
 ul{padding-left:0;margin:0;list-style:none}
 li{padding:9px 12px;border-radius:10px;margin-bottom:6px;font-size:.93rem}
 li.ok{background:var(--okbg)} li.warn{background:var(--warnbg);color:var(--warn)}
-.bar{display:grid;grid-template-columns:90px 1fr 64px;gap:10px;align-items:center;margin-bottom:8px;font-size:.9rem}
+.bar{display:grid;grid-template-columns:96px 1fr 64px;gap:10px;align-items:center;margin-bottom:8px;font-size:.9rem}
 .bn{font-weight:700}.bp{text-align:right;color:var(--mute)}
 .bt{height:12px;background:var(--tr);border-radius:99px;overflow:hidden}.bf{height:100%;background:var(--g);border-radius:99px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 8px}
+.badge{padding:3px 11px;border-radius:99px;font-size:.8rem;font-weight:700;background:var(--tr);color:var(--ink)}
+.badge.kharif{background:#d8efd9;color:#1b5e20}.badge.rabi{background:#fff0c9;color:#7a5200}
+.badge.zaid{background:#ffe0d6;color:#a13a12}.badge.perennial{background:#dbe7ff;color:#1c4a9a}
+.badge.sownow{background:var(--g);color:#fff;margin-left:auto}
+@media(prefers-color-scheme:dark){.badge.kharif,.badge.rabi,.badge.zaid,.badge.perennial{color:#10170f}}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.93rem}
+.kv span{color:var(--mute)}.kv b{text-align:right}
+.now{padding:10px 12px;border-radius:10px;margin-top:10px;font-size:.92rem}
+.now.ok{background:var(--okbg)}.now.warn{background:var(--warnbg);color:var(--warn)}
+.areaRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.areaRow label{font-weight:600;font-size:.92rem}
+.scroll{overflow-x:auto;margin-bottom:8px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--mute);font-weight:600}td.gap{color:var(--warn);font-weight:700}
+.crop{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;background:var(--card)}
+.ch{display:flex;align-items:center;gap:8px;font-size:1.05rem}.ce{font-size:1.5rem}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--okbg);border-radius:12px;padding:12px;text-align:center}
+.sv{font-size:1.4rem;font-weight:800;color:var(--g)}.sl{font-size:.8rem;color:var(--mute)}
+p{margin:8px 0}
 footer{text-align:center;color:var(--mute);font-size:.8rem;padding:6px 14px 24px}
 </style>
 </head>
 <body>
 <header>
   <h1>🌱 AI-Powered Crop Recommendation</h1>
-  <p>Enter soil and climate values to get the best crop, confidence scores and fertilizer advice. Works offline.</p>
+  <p>Enter soil and climate values to get the best crop, season advice and fertilizer quantity.</p>
 </header>
+<nav>
+  <button class="tab on" data-tab="recommend">Recommend</button>
+  <button class="tab" data-tab="season">Season guide</button>
+  <button class="tab" data-tab="about">About model</button>
+</nav>
 <main>
+<div class="pane" id="pane-recommend">
+  <section class="card">
+    <h2>🌤️ Auto-fill from weather</h2>
+    <p class="hint" style="margin-top:0">Fills temperature, humidity and rainfall (last 30 days) from live weather data. Needs internet. Soil values (N, P, K, pH) still come from your soil test.</p>
+    <div class="wrow"><button class="alt" id="geoBtn" type="button">📍 Use my location</button></div>
+    <div class="wrow"><input type="text" id="cityInput" placeholder="Or search a city, e.g. Pune" autocomplete="off"><button class="alt" id="cityBtn" type="button">Search</button></div>
+    <div id="cityResults"></div>
+    <div class="wstatus" id="wStatus" hidden></div>
+  </section>
   <section class="card"><h2>Quick presets</h2><div class="chips" id="presets"></div></section>
   <section class="card">
     <div class="sec">🧪 Soil &amp; 🌦️ Climate inputs</div>
@@ -69,13 +117,56 @@ footer{text-align:center;color:var(--mute);font-size:.8rem;padding:6px 14px 24px
         <div><div class="p">Recommended crop</div><div class="c" id="crop"></div><div class="p" id="conf"></div></div></div>
       <div class="why" id="why"></div>
     </section>
-    <section class="card"><h2>Fertilizer recommendation &amp; soil correction</h2><ul id="fert"></ul></section>
+    <section class="card" id="seasonCard"></section>
+    <section class="card"><h2>Soil correction advice</h2><ul id="fert"></ul></section>
+    <section class="card">
+      <h2>🧮 Fertilizer quantity for your field</h2>
+      <div class="areaRow"><label for="area">Field size</label>
+        <input type="number" id="area" value="1" min="0.01" step="0.01" inputmode="decimal">
+        <select id="unit"><option value="acre">acre</option><option value="hectare">hectare</option><option value="guntha">guntha</option></select></div>
+      <div id="fertOut"></div>
+      <p class="hint">Estimate only: it fills the gap between your soil values (taken as kg/ha) and the typical level for this crop in the dataset. Confirm with a soil-testing lab or your local agriculture office before buying.</p>
+    </section>
     <section class="card"><h2>📊 Top-3 alternatives</h2><div id="top3"></div></section>
   </div>
+</div>
+
+<div class="pane" id="pane-season" hidden>
+  <section class="card">
+    <h2>📅 Which season suits which crop?</h2>
+    <p><b>Kharif</b> (Jun–Oct): sown with the monsoon. <b>Rabi</b> (Nov–Mar): sown in winter. <b>Zaid</b> (Mar–Jun): short summer crops. <b>Perennial</b>: trees and plants that live for years.</p>
+    <div class="chips" id="sfilters" style="margin:10px 0"></div>
+    <input type="text" id="sSearch" placeholder="Search a crop" style="width:100%" autocomplete="off">
+  </section>
+  <div id="sList"></div>
+  <p class="hint">General guidance for India. Exact dates vary by region, variety and irrigation.</p>
+</div>
+
+<div class="pane" id="pane-about" hidden>
+  <section class="card">
+    <h2>🤖 About the model</h2>
+    <div class="stats" id="aboutStats"></div>
+    <p>The app uses a <b>Random Forest classifier</b>. It has many decision trees, and each tree votes for a crop based on your 7 inputs. The crop with the most votes is recommended, and the confidence is the share of trees that voted for it.</p>
+    <p>Everything runs on your device, so the app works without internet. Only the weather auto-fill needs a connection.</p>
+  </section>
+  <section class="card"><h2>Which inputs matter most?</h2><div id="aboutImp"></div><p class="hint">Share of the model's decisions that depend on each input.</p></section>
+  <section class="card">
+    <h2>Training data</h2>
+    <p id="aboutSplit"></p>
+    <p>Dataset: Crop Recommendation (Kaggle). Inputs: N, P, K, temperature, humidity, pH, rainfall. Output: one of the crops below.</p>
+    <p id="aboutCrops" class="hint"></p>
+  </section>
+  <section class="card">
+    <h2>Limits to keep in mind</h2>
+    <p>The accuracy is measured on held-out rows of the same dataset. Real fields are messier, so treat the result as guidance, not a guarantee. The model only knows the listed crops, and the fertilizer amounts are estimates.</p>
+  </section>
+</div>
 </main>
-<footer>Random Forest model (100 trees) trained on the Kaggle Crop Recommendation dataset. Advice is indicative; confirm with a local agronomist.</footer>
+<footer>Random Forest model (100 trees). Advice is indicative; confirm with a local agronomist.</footer>
 <script src="model.js"></script>
+<script src="crops.js"></script>
 <script src="engine.js"></script>
+<script src="logic.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
