@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2e7d32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Crop Recommendation System</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#f3f7f1;--card:#fff;--ink:#1d2b1f;--mute:#5d6b5f;--g:#2e7d32;--g2:#1b5e20;--line:#dfe8dc;--warn:#b26a00;--warnbg:#fff4e0;--okbg:#e8f5e9;--tr:#e3ebe0}
+@media(prefers-color-scheme:dark){:root{--bg:#10170f;--card:#182217;--ink:#e6efe4;--mute:#9db09b;--g:#66bb6a;--g2:#43a047;--line:#2a3a29;--warn:#ffb74d;--warnbg:#33290f;--okbg:#14301a;--tr:#2a3a29}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+ padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+header{background:linear-gradient(135deg,var(--g2),var(--g));color:#fff;padding:22px 18px 26px;text-align:center}
+header h1{margin:0;font-size:1.35rem}
+header p{margin:6px auto 0;max-width:620px;font-size:.92rem;opacity:.92}
+main{max-width:860px;margin:0 auto;padding:16px 14px 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+h2{font-size:1rem;margin:0 0 10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 14px;border-radius:999px;font-size:.9rem;cursor:pointer}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:4px}
+.unit{color:var(--mute);font-weight:400}
+.row{display:flex;gap:10px;align-items:center}
+input[type=range]{flex:1;accent-color:var(--g);min-width:0}
+input[type=number]{width:92px;padding:9px 8px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:1rem}
+.sec{font-weight:700;margin:4px 0 12px}
+button.go{width:100%;margin-top:6px;padding:15px;border:0;border-radius:14px;background:var(--g);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}
+button.go:active{background:var(--g2)}
+.err{background:var(--warnbg);color:var(--warn);padding:10px 12px;border-radius:10px;margin-top:10px}
+.hero{display:flex;align-items:center;gap:14px}
+.hero .e{font-size:3rem;line-height:1}
+.hero .c{font-size:1.6rem;font-weight:800}
+.hero .p{color:var(--g);font-weight:600}
+.why{background:var(--okbg);padding:12px;border-radius:12px;margin:12px 0 0;font-size:.93rem}
+ul{padding-left:0;margin:0;list-style:none}
+li{padding:9px 12px;border-radius:10px;margin-bottom:6px;font-size:.93rem}
+li.ok{background:var(--okbg)} li.warn{background:var(--warnbg);color:var(--warn)}
+.bar{display:grid;grid-template-columns:90px 1fr 64px;gap:10px;align-items:center;margin-bottom:8px;font-size:.9rem}
+.bn{font-weight:700}.bp{text-align:right;color:var(--mute)}
+.bt{height:12px;background:var(--tr);border-radius:99px;overflow:hidden}.bf{height:100%;background:var(--g);border-radius:99px}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:6px 14px 24px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🌱 AI-Powered Crop Recommendation</h1>
+  <p>Enter soil and climate values to get the best crop, confidence scores and fertilizer advice. Works offline.</p>
+</header>
+<main>
+  <section class="card"><h2>Quick presets</h2><div class="chips" id="presets"></div></section>
+  <section class="card">
+    <div class="sec">🧪 Soil &amp; 🌦️ Climate inputs</div>
+    <div class="grid" id="fields"></div>
+    <button class="go" id="predict">Predict Crop and Get Advice</button>
+    <div class="err" id="error" hidden></div>
+  </section>
+  <div id="result" hidden>
+    <section class="card">
+      <div class="hero"><div class="e" id="emoji"></div>
+        <div><div class="p">Recommended crop</div><div class="c" id="crop"></div><div class="p" id="conf"></div></div></div>
+      <div class="why" id="why"></div>
+    </section>
+    <section class="card"><h2>Fertilizer recommendation &amp; soil correction</h2><ul id="fert"></ul></section>
+    <section class="card"><h2>📊 Top-3 alternatives</h2><div id="top3"></div></section>
+  </div>
+</main>
+<footer>Random Forest model (100 trees) trained on the Kaggle Crop Recommendation dataset. Advice is indicative; confirm with a local agronomist.</footer>
+<script src="model.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
